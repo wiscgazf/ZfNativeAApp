@@ -1,66 +1,44 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React, { useEffect } from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  Dimensions,
-  Alert,
-} from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { tabRoutes, getLabel, ITabItem } from './src/router/tab-router';
 
-import { Colors, Header } from 'react-native/Libraries/NewAppScreen';
+const Tab = createBottomTabNavigator();
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    height: Dimensions.get('window').height,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <Text>欢迎来到周飞的APP</Text>
-        <Text>欢迎来到周飞的APP</Text>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: () => {
+            return <Text>aa</Text>;
+          },
+          tabBarLabel: ({ focused }) => {
+            return (
+              <Text style={styles[`tabLabel${focused ? 'Active' : ''}`]}>
+                {getLabel(route.name)}
+              </Text>
+            );
+          },
+          header: () => null,
+        })}>
+        {tabRoutes.map(({ name, Component }: ITabItem) => {
+          return <Tab.Screen name={name} component={Component}></Tab.Screen>;
+        })}
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  tabLabel: {
+    fontSize: 12,
+    color: '#b4b4b4',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  tabLabelActive: {
+    fontSize: 12,
+    color: '#ff0',
   },
 });
 
