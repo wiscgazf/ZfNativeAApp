@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
+import React from 'react';
+import { Text, View, StyleSheet, Image, StatusBar } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { tabRoutes, getLabel, ITabItem } from '../router/tab-router';
+import PubHeader from '../components/PubHeader';
 
 const Tab = createBottomTabNavigator();
+const batteryBarH = (StatusBar.currentHeight ?? 40) + 50;
 
 const MainLayout = () => {
   return (
@@ -26,9 +28,11 @@ const MainLayout = () => {
             </Text>
           );
         },
-        title: getLabel(route.name)?.label,
-        headerTitleAlign: 'center',
-        header: () => null,
+        header: () => (
+          <View style={{ backgroundColor: '#fff', height: batteryBarH }}>
+            <PubHeader />
+          </View>
+        ),
       })}>
       {tabRoutes.map(({ name, Component }: ITabItem) => {
         return <Tab.Screen name={name} component={Component}></Tab.Screen>;

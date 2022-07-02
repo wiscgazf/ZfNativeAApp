@@ -6,7 +6,6 @@ import {
   ScrollView,
   useWindowDimensions,
 } from 'react-native';
-import PubHeader from '../../components/PubHeader';
 
 const Community = () => {
   const screenInfo = useWindowDimensions();
@@ -17,7 +16,6 @@ const Community = () => {
         keyboardShouldPersistTaps={'handled'}
         keyboardDismissMode={'none'}
         style={{ height: screenInfo.height, backgroundColor: '#fff' }}>
-        <PubHeader />
         <View>
           <Text>这是朋友圈</Text>
         </View>

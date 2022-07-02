@@ -6,7 +6,6 @@ import {
   ScrollView,
   useWindowDimensions,
 } from 'react-native';
-import PubHeader from '../../components/PubHeader';
 
 const Me = () => {
   const screenInfo = useWindowDimensions();
@@ -17,7 +16,6 @@ const Me = () => {
         keyboardShouldPersistTaps={'handled'}
         keyboardDismissMode={'none'}
         style={{ height: screenInfo.height, backgroundColor: '#fff' }}>
-        <PubHeader />
         <View>
           <Text>这是我的</Text>
         </View>

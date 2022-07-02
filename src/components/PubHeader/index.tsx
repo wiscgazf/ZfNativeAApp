@@ -30,9 +30,9 @@ const PubHeader = () => {
     <>
       <StatusBar
         barStyle="light-content"
-        backgroundColor="#fff"
+        backgroundColor="rgba(0,0,0,0)"
         translucent={true}></StatusBar>
-      <View style={{ ...styles.pubTitleMain, marginTop: batteryBarH }}>
+      <View style={{ ...styles.pubTitleMain, paddingTop: batteryBarH }}>
         <View style={styles.headerInputWrap}>
           <Image
             source={require('../../assets/images/icon/search.png')}
@@ -42,8 +42,10 @@ const PubHeader = () => {
           <TextInput
             style={styles.headerInput}
             underlineColorAndroid={'transparent'}
+            maxLength={20}
             value={keyword}
             ref={searchRef}
+            placeholder={'Search sites'}
             onChangeText={text => setKeyword(text)}></TextInput>
         </View>
         <TouchableOpacity onPress={Keyboard.dismiss} accessible={false}>
