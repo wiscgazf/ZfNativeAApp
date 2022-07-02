@@ -35,7 +35,9 @@ const MainLayout = () => {
         ),
       })}>
       {tabRoutes.map(({ name, Component }: ITabItem) => {
-        return <Tab.Screen name={name} component={Component}></Tab.Screen>;
+        return (
+          <Tab.Screen name={name} component={Component} key={name}></Tab.Screen>
+        );
       })}
     </Tab.Navigator>
   );

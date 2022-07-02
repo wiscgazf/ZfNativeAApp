@@ -17,6 +17,7 @@ const App = () => {
         {routes.map(({ name, Component }: IRouteItem) => {
           return (
             <MainStackLayout.Screen
+              key={name}
               name={name}
               component={Component}></MainStackLayout.Screen>
           );
