@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import MainLayout from './src/layout/MainLayout';
-import Test from './src/views/Test';
+import { routes, IRouteItem } from './src/router/routes';
 
 const MainStackLayout = createStackNavigator();
 
@@ -11,16 +10,17 @@ const App = () => {
   return (
     <NavigationContainer>
       <MainStackLayout.Navigator
-        screenOptions={({ route }) => ({
+        screenOptions={() => ({
           header: () => null,
           gestureEnabled: true,
         })}>
-        <MainStackLayout.Screen
-          name={'MainLayout'}
-          component={MainLayout}></MainStackLayout.Screen>
-        <MainStackLayout.Screen
-          name={'Test'}
-          component={Test}></MainStackLayout.Screen>
+        {routes.map(({ name, Component }: IRouteItem) => {
+          return (
+            <MainStackLayout.Screen
+              name={name}
+              component={Component}></MainStackLayout.Screen>
+          );
+        })}
       </MainStackLayout.Navigator>
     </NavigationContainer>
   );

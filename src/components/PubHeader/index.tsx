@@ -1,29 +1,29 @@
+import React from 'react';
 import {
   View,
-  TextInput,
   Image,
   StyleSheet,
   TouchableOpacity,
-  Keyboard,
   StatusBar,
+  Text,
+  TouchableHighlight,
 } from 'react-native';
-import React, { useState, useEffect, useRef } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 const batteryBarH = StatusBar.currentHeight;
 const PubHeader = () => {
-  const [keyword, setKeyword] = useState<string>('');
-  const searchRef = useRef<TextInput>(null);
+  const navigation = useNavigation();
 
-  useEffect(() => {
-    Keyboard.addListener('keyboardDidHide', () => obBlur());
-    return () => {
-      Keyboard.removeListener('keyboardDidHide', () => obBlur());
-    };
-  }, []);
+  // 跳转搜索页
+  const navigateToSearch = () => {
+    // @ts-ignore
+    navigation.navigate('Search');
+  };
 
-  // 点击软键盘收起 需要主动处理失去焦点
-  const obBlur = () => {
-    searchRef.current?.blur();
+  // 跳转通知页面
+  const navigateToNotification = () => {
+    // @ts-ignore
+    navigation.navigate('Notification');
   };
 
   return (
@@ -33,22 +33,21 @@ const PubHeader = () => {
         backgroundColor="rgba(0,0,0,0)"
         translucent={true}></StatusBar>
       <View style={{ ...styles.pubTitleMain, paddingTop: batteryBarH }}>
-        <View style={styles.headerInputWrap}>
-          <Image
-            source={require('../../assets/images/icon/search.png')}
-            style={styles.inputIcon}
-            resizeMode={'contain'}
-          />
-          <TextInput
-            style={styles.headerInput}
-            underlineColorAndroid={'transparent'}
-            maxLength={20}
-            value={keyword}
-            ref={searchRef}
-            placeholder={'Search sites'}
-            onChangeText={text => setKeyword(text)}></TextInput>
-        </View>
-        <TouchableOpacity onPress={Keyboard.dismiss} accessible={false}>
+        <TouchableHighlight
+          style={styles.headerInputWrap}
+          activeOpacity={0.1}
+          underlayColor="#eee"
+          onPress={() => navigateToSearch()}>
+          <>
+            <Image
+              source={require('../../assets/images/icon/search.png')}
+              style={styles.inputIcon}
+              resizeMode={'contain'}
+            />
+            <Text style={styles.inputTxt}>Search sites</Text>
+          </>
+        </TouchableHighlight>
+        <TouchableOpacity onPress={() => navigateToNotification()}>
           <Image
             source={require('../../assets/images/icon/notifications.png')}
             resizeMode={'contain'}
@@ -70,17 +69,21 @@ const styles = StyleSheet.create({
   },
   headerInputWrap: {
     flex: 1,
-  },
-  inputIcon: {
-    position: 'absolute',
-    top: 4,
-    left: 12,
-    zIndex: 1,
-  },
-  headerInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
     height: 40,
     backgroundColor: '#F3F3F3',
-    paddingLeft: 54,
+    borderRadius: 2,
+  },
+  inputIcon: {
+    width: 32,
+    height: 32,
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  inputTxt: {
+    fontSize: 14,
+    color: '#a3a2a2',
   },
   headerNotify: {
     width: 32,

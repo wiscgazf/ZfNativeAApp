@@ -24,7 +24,7 @@ const MainLayout = () => {
         tabBarLabel: ({ focused }) => {
           return (
             <Text style={styles[`tabLabel${focused ? 'Active' : ''}`]}>
-              {getLabel(route.name)?.label}
+              {route.name}
             </Text>
           );
         },
@@ -43,17 +43,19 @@ const MainLayout = () => {
 
 const styles = StyleSheet.create({
   tabLabel: {
-    fontSize: 13,
+    fontSize: 12,
     color: '#04081766',
-    fontWeight: '500',
+    fontWeight: '600',
+    marginBottom: 2,
   },
   tabLabelActive: {
-    fontSize: 13,
+    fontSize: 12,
     color: '#040817',
-    fontWeight: '500',
+    fontWeight: '600',
+    marginBottom: 2,
   },
   tabIcon: {
-    marginBottom: -4,
+    marginBottom: -5,
   },
 });
 
