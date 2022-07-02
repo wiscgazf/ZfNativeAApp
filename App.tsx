@@ -1,32 +1,27 @@
 import React, { useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { tabRoutes, getLabel, ITabItem } from './src/router/tab-router';
+import { createStackNavigator } from '@react-navigation/stack';
+import MainLayout from './src/layout/MainLayout';
+import Test from './src/views/Test';
 
-const Tab = createBottomTabNavigator();
+const MainStackLayout = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
+      <MainStackLayout.Navigator
         screenOptions={({ route }) => ({
-          tabBarIcon: () => {
-            return <Text>aa</Text>;
-          },
-          tabBarLabel: ({ focused }) => {
-            return (
-              <Text style={styles[`tabLabel${focused ? 'Active' : ''}`]}>
-                {getLabel(route.name)}
-              </Text>
-            );
-          },
           header: () => null,
+          gestureEnabled: true,
         })}>
-        {tabRoutes.map(({ name, Component }: ITabItem) => {
-          return <Tab.Screen name={name} component={Component}></Tab.Screen>;
-        })}
-      </Tab.Navigator>
+        <MainStackLayout.Screen
+          name={'MainLayout'}
+          component={MainLayout}></MainStackLayout.Screen>
+        <MainStackLayout.Screen
+          name={'Test'}
+          component={Test}></MainStackLayout.Screen>
+      </MainStackLayout.Navigator>
     </NavigationContainer>
   );
 };
